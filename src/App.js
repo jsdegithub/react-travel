@@ -30,7 +30,7 @@ function App() {
   return (
     <div className={styles["App"]}>
       <BrowserRouter>
-        <Suspense fallback={<div></div>}>
+        <Suspense fallback={<div><h1>Loading...</h1></div>}>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/register" component={Register} />

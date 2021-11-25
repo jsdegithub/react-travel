@@ -1,7 +1,7 @@
 import styles from "./SearchProduct.module.css";
 import React, { useEffect } from "react";
 import { Spin } from "antd";
-import { useLocation, useParams } from "react-router";
+import { useParams } from "react-router";
 import { searchProduct } from "../../redux/reducer/searchProduct/slice";
 import { useDispatch, useSelector } from "react-redux";
 import { MainLayout } from "../../layouts/mainLayout/MainLayout";

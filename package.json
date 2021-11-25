@@ -2,6 +2,10 @@
   "name": "react-travel2",
   "version": "0.1.0",
   "private": true,
+  "sideEffects": [
+    "./src/i18n/config.js",
+    "*.css"
+  ],
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@reduxjs/toolkit": "^1.6.2",
@@ -23,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "set GENERATE_SOURCEMAP=false&&react-scripts build",
+    "build": "set GENERATE_SOURCEMAP=false&&react-scripts build --mode=prod",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
