@@ -1,23 +1,80 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, lazy, Suspense } from "react";
+import { Spin } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import styles from "./App.module.css";
+
+import { getShoppingCartProductListActionCreator } from "./redux/reducer/shoppingCart/reducer";
+import { PrivateRoute } from "./route/PrivateRoute";
+// import {
+//   Home,
+//   Register,
+//   Login,
+//   ProductDetail,
+//   ShoppingCart,
+//   PlaceOrder,
+//   SearchProduct,
+// } from "./pages";
+
+const Home = lazy(() => import("./pages/home/Home"));
+const Register = lazy(() => import("./pages/register/Register"));
+const Login = lazy(() => import("./pages/login/Login"));
+const ProductDetail = lazy(() => import("./pages/productDetail/ProductDetail"));
+const ShoppingCart = lazy(() => import("./pages/shoppingCart/ShoppingCart"));
+const PlaceOrder = lazy(() => import("./pages/placeOrder/PlaceOrder"));
+const SearchProduct = lazy(() => import("./pages/searchProduct/SearchProduct"));
 
 function App() {
+  const dispatch = useDispatch();
+  const jwt = useSelector((state) => state.login.jwt);
+
+  // 为什么获取购物车列表的请求要放在这？
+  // 因为 Header组件的 useEffect中有setState，和 dispatch同时出现会死循环
+  // 若在 Home中调用，则其它页面在强制刷新时，会清空内存中的从Home页面获取的shoppingCartProductList
+
+  useEffect(() => {
+    if (jwt !== null) {
+      dispatch(getShoppingCartProductListActionCreator(jwt));
+    }
+  }, [jwt]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className={styles["App"]}>
+      <BrowserRouter>
+        <Suspense
+          fallback={
+            <Spin
+              size={"large"}
+              style={{
+                marginTop: 200,
+                marginBottom: 200,
+                marginLeft: "auto",
+                marginRight: "auto",
+                width: "100%",
+              }}
+            />
+          }
         >
-          Learn React
-        </a>
-      </header>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/register" component={Register} />
+            <Route path="/login" component={Login} />
+            <Route path="/productDetail/:id" component={ProductDetail} />
+            <Route path="/SearchProduct/:keyword?" component={SearchProduct} />
+            <PrivateRoute
+              path="/shoppingCart"
+              component={ShoppingCart}
+              isAuthenticated={jwt !== null}
+            />
+            <PrivateRoute
+              path="/placeOrder"
+              component={PlaceOrder}
+              isAuthenticated={jwt !== null}
+            />
+            <Route render={() => <h1>404 not found.</h1>} />
+          </Switch>
+        </Suspense>
+      </BrowserRouter>
     </div>
   );
 }
