@@ -1,20 +1,9 @@
 import { useEffect, lazy, Suspense } from "react";
-import { Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styles from "./App.module.css";
-
 import { getShoppingCartProductListActionCreator } from "./redux/reducer/shoppingCart/reducer";
 import { PrivateRoute } from "./route/PrivateRoute";
-// import {
-//   Home,
-//   Register,
-//   Login,
-//   ProductDetail,
-//   ShoppingCart,
-//   PlaceOrder,
-//   SearchProduct,
-// } from "./pages";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const Register = lazy(() => import("./pages/register/Register"));
@@ -41,20 +30,7 @@ function App() {
   return (
     <div className={styles["App"]}>
       <BrowserRouter>
-        <Suspense
-          fallback={
-            <Spin
-              size={"large"}
-              style={{
-                marginTop: 200,
-                marginBottom: 200,
-                marginLeft: "auto",
-                marginRight: "auto",
-                width: "100%",
-              }}
-            />
-          }
-        >
+        <Suspense fallback={<div></div>}>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/register" component={Register} />
