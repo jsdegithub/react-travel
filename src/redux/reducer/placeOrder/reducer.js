@@ -17,6 +17,7 @@ export const placeOrderActionCreator = (params) => async (dispatch, getState) =>
       {
         headers: {
           Authorization: `bearer ${params.jwt}`,
+          "x-icode": "46A0A6ADED08D5A9",
         },
       }
     );

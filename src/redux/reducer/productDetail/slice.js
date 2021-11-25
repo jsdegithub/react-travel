@@ -11,7 +11,12 @@ export const getProductDetail = createAsyncThunk(
   "productDetail/getProductDetail",
   async (id) => {
     const { data } = await axios.get(
-      `http://123.56.149.216:8080/api/touristRoutes/${id}`
+      `http://123.56.149.216:8080/api/touristRoutes/${id}`,
+      {
+        headers: {
+          "x-icode": "46A0A6ADED08D5A9",
+        },
+      }
     );
     return data;
   }

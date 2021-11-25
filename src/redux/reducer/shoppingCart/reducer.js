@@ -15,6 +15,7 @@ export const getShoppingCartProductListActionCreator =
       const { data } = await axios.get("http://123.56.149.216:8080/api/shoppingCart", {
         headers: {
           Authorization: `bearer ${jwt}`,
+          "x-icode": "46A0A6ADED08D5A9",
         },
       });
       dispatch({
@@ -43,6 +44,7 @@ export const addShoppingCartProductActionCreator =
         {
           headers: {
             Authorization: `bearer ${params.jwt}`,
+            "x-icode": "46A0A6ADED08D5A9",
           },
         }
       );
@@ -71,6 +73,7 @@ export const deleteShoppingCartProductActionCreator =
         {
           headers: {
             Authorization: `bearer ${params.jwt}`,
+            "x-icode": "46A0A6ADED08D5A9",
           },
         }
       );
@@ -96,6 +99,7 @@ export const checkoutActionCreator = (jwt) => async (dispatch, getState) => {
       {
         headers: {
           Authorization: `bearer ${jwt}`,
+          "x-icode": "46A0A6ADED08D5A9",
         },
       }
     );
