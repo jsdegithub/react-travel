@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+## 项目演示：[点击链接查看项目演示](https://tour.aeeternity.com/)（不要使用代理访问网站，否则会被拦截）
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 技术栈： React+Hook+Typescript+Antd+ReactRouter+Redux+React-redux+ReduxToolkit
 
-## Available Scripts
+### 部署方案：Docker+阿里云ECS+阿里云容器镜像服务+阿里云SSL单域名证书+nginx接口代理
+编写Dockerfile制作镜像，推送到阿里云镜像仓库，再从ECS服务器拉取镜像；
 
-In the project directory, you can run:
+使用nginx拦截api请求，将api请求转发到真实接口，网站支持https。
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 优化方案：
+1、lazy+Suspense路由懒加载，大大减少了白屏时间（路由系统放在App.js中）；
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2、TreeShaking去除引用库中没有使用的代码，减少了白屏时间和首屏加载时间；
 
-### `npm test`
+3、CodeSplitting代码分割，减少了白屏时间和首屏加载时间；
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4、全站图片懒加载，大大减少了各组件加载时间（使用了react-lazy-load-image-component）；
 
-### `npm run build`
+5、TinyPNG本地图片压缩，减少了首屏加载时间；
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+6、最大化压缩了index.js和App.js的体积，大大缩短了白屏时间；
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+7、React.memo+useMemo+useCallback子组件性能优化；
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+8、经测试，白屏时间:0.7s，TimeToInteractive:1.8s，DOMContentLoaded:3s，首屏完全加载时间8s；
 
-### `npm run eject`
+9、服务器图片资源未经压缩，对首屏加载速度影响较大。
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 项目功能点和难点：
+一、redux全局状态管理
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1、引入了react-redux更方便地获取store state和dispatch，同时避免了在组件中订阅store；
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2、使用工厂模式代替手动创建action，避免了如action.type类型拼写错误的低级失误；
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3、引入redux-thunk，创建异步请求的action creator，将异步请求的实现逻辑从组件中剥离，转移到redux中，这样对于需要多次调用的异步请求节省了代码数量，也方便维护；
 
-## Learn More
+4、在i18n国际化模块中，为了保持reducer纯函数的特性，自定义了redux中间件，在reducer开始处理action前拦截action，根据action.type判断action类型，如果action.type==='changeLanguage'，
+则调用i18n的changeLanguage API实现语言切换，避免了在reducer中引入副作用；
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5、引入redux-toolkit，使用createAsyncThunk创建异步请求的action，配合extraReducers做异步请求状态处理，同时省去了action的创建和派发。
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+二、用户登录、登出、注册、jwt持久化存储以及私有路由的搭建
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1、注册：dispatch的注册action返回成功状态后，调用history.push重定向到登陆页面；
 
-### Analyzing the Bundle Size
+2、登录：使用useSelector获取redux store中的jwt，使用useEffect监听jwt，如果jwt不为null，就调用history.push重定向到主页；登录action的派发由登录按钮的onClick事件触发；
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3、登出：只需派发一个logout action将redux store中的jwt置为null；
 
-### Making a Progressive Web App
+4、jwt持久化存储：借助redux-persist，具体不详述；
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+5、私有路由的搭建：使用HOC高阶组件进行条件渲染。以购物车页面为例，私有路由需要判断jwt是否为空，如果为空，则重定向到登陆页面；如果不为空，则跳转到购物车页面。
 
-### Advanced Configuration
+三、其它业务逻辑不再赘述
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+...
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+...
