@@ -21,8 +21,8 @@ COPY ../nginx_config/nginx.conf ./
 
 # Copy ssl certificate to /etc/nginx/ssl_certificate/travel
 WORKDIR /etc/nginx/ssl_certificate/travel
-COPY ../ssl_certificate/travel/6713133_travel.aeeternity.com.pem ./
-COPY ../ssl_certificate/travel/6713133_travel.aeeternity.com.key ./
+COPY ../ssl_certificate/travel/6727054_travel.aeeternity.com.pem ./
+COPY ../ssl_certificate/travel/6727054_travel.aeeternity.com.key ./
 
 # Rename the build folder to workspace
 WORKDIR /workspace/travel
