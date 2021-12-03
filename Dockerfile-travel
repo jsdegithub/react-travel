@@ -1,0 +1,27 @@
+
+
+# Build
+FROM node:14 as build
+WORKDIR /app
+COPY package*.json ./
+COPY .env.prod ./
+RUN npm install
+COPY public public/
+COPY src src/
+RUN npm run build
+
+# Create workspace in root directory
+FROM nginx:alpine
+WORKDIR /etc/nginx/vhosts
+COPY travel.conf ./
+
+# Replace nginx.conf in /etc/nginx
+WORKDIR /etc/nginx
+RUN rm -f nginx.conf
+COPY nginx.conf ./
+
+# Rename the build folder to workspace
+WORKDIR /workspace/travel
+COPY --from=build /app/build/ ./
+EXPOSE 80
+CMD [ "nginx", "-g", "daemon off;" ]
