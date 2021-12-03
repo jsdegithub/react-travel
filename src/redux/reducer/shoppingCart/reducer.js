@@ -12,10 +12,9 @@ export const getShoppingCartProductListActionCreator =
       type: "getShoppingCartProductListStart",
     });
     try {
-      const { data } = await axios.get("http://123.56.149.216:8080/api/shoppingCart", {
+      const { data } = await axios.get("/api/shoppingCart", {
         headers: {
           Authorization: `bearer ${jwt}`,
-          "x-icode": "46A0A6ADED08D5A9",
         },
       });
       dispatch({
@@ -37,14 +36,13 @@ export const addShoppingCartProductActionCreator =
     });
     try {
       const { data } = await axios.post(
-        "http://123.56.149.216:8080/api/shoppingCart/items",
+        "/api/shoppingCart/items",
         {
           touristRouteId: params.id,
         },
         {
           headers: {
             Authorization: `bearer ${params.jwt}`,
-            "x-icode": "46A0A6ADED08D5A9",
           },
         }
       );
@@ -66,17 +64,11 @@ export const deleteShoppingCartProductActionCreator =
       type: "deleteShoppingCartProductStart",
     });
     try {
-      await axios.delete(
-        `http://123.56.149.216:8080/api/shoppingCart/items/(${params.productIds.join(
-          ","
-        )})`,
-        {
-          headers: {
-            Authorization: `bearer ${params.jwt}`,
-            "x-icode": "46A0A6ADED08D5A9",
-          },
-        }
-      );
+      await axios.delete(`/api/shoppingCart/items/(${params.productIds.join(",")})`, {
+        headers: {
+          Authorization: `bearer ${params.jwt}`,
+        },
+      });
       dispatch({
         type: "deleteShoppingCartProductSuccess",
       });
@@ -93,16 +85,11 @@ export const checkoutActionCreator = (jwt) => async (dispatch, getState) => {
     type: "checkoutStart",
   });
   try {
-    const { data } = await axios.post(
-      `http://123.56.149.216:8080/api/shoppingCart/checkout`,
-      null,
-      {
-        headers: {
-          Authorization: `bearer ${jwt}`,
-          "x-icode": "46A0A6ADED08D5A9",
-        },
-      }
-    );
+    const { data } = await axios.post(`/api/shoppingCart/checkout`, null, {
+      headers: {
+        Authorization: `bearer ${jwt}`,
+      },
+    });
     dispatch({
       type: "checkoutSuccess",
       payload: data,

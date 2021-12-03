@@ -16,19 +16,11 @@ export const RegisterForm = () => {
       type: "registerStart",
     });
     try {
-      await axios.post(
-        "http://123.56.149.216:8080/auth/register",
-        {
-          email: values.username,
-          password: values.password,
-          confirmPassword: values.confirm,
-        },
-        {
-          headers: {
-            "x-icode": "46A0A6ADED08D5A9",
-          },
-        }
-      );
+      await axios.post("/auth/register", {
+        email: values.username,
+        password: values.password,
+        confirmPassword: values.confirm,
+      });
       dispatch({
         type: "registerSuccess",
       });

@@ -2,9 +2,10 @@
 
 # RSA
 /ssl_certificate
-
 # nginx config
 /nginx_config
+# webpack config
+/config
 
 # dependencies
 /node_modules

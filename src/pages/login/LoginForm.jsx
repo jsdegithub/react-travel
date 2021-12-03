@@ -23,18 +23,10 @@ export const LoginForm = () => {
   const onFinish = async (values) => {
     dispatch(loginSlice.actions.loginStart());
     try {
-      const { data } = await axios.post(
-        "http://123.56.149.216:8080/auth/login",
-        {
-          email: values.username,
-          password: values.password,
-        },
-        {
-          headers: {
-            "x-icode": "46A0A6ADED08D5A9",
-          },
-        }
-      );
+      const { data } = await axios.post("/auth/login", {
+        email: values.username,
+        password: values.password,
+      });
       dispatch(loginSlice.actions.loginSuccess(data.token));
       message.info("登陆成功");
     } catch (e) {

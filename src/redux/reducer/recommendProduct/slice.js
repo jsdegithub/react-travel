@@ -10,14 +10,7 @@ const initialState = {
 export const getRecommendProductList = createAsyncThunk(
   "recommendProduct/getRecommendProductList",
   async () => {
-    const { data } = await axios.get(
-      "http://123.56.149.216:8080/api/productCollections",
-      {
-        headers: {
-          "x-icode": "46A0A6ADED08D5A9",
-        },
-      }
-    );
+    const { data } = await axios.get("/api/productCollections");
     return data;
   }
 );

@@ -11,15 +11,11 @@ const initialState = {
 export const searchProduct = createAsyncThunk(
   "productSearch/searchProduct",
   async (params) => {
-    let url = `http://123.56.149.216:8080/api/touristRoutes?pageNumber=${params.pageNumber}&pageSize=${params.pageSize}`;
+    let url = `/api/touristRoutes?pageNumber=${params.pageNumber}&pageSize=${params.pageSize}`;
     if (params.keyword) {
       url += `&keyword=${params.keyword}`;
     }
-    const res = await axios.get(url, {
-      headers: {
-        "x-icode": "46A0A6ADED08D5A9",
-      },
-    });
+    const res = await axios.get(url);
     return {
       data: res.data,
       pagination: JSON.parse(res.headers["x-pagination"]),

@@ -11,16 +11,11 @@ export const placeOrderActionCreator = (params) => async (dispatch, getState) =>
     type: "placeOrderStart",
   });
   try {
-    const { data } = await axios.post(
-      `http://123.56.149.216:8080/api/orders/${params.orderId}/placeOrder`,
-      null,
-      {
-        headers: {
-          Authorization: `bearer ${params.jwt}`,
-          "x-icode": "46A0A6ADED08D5A9",
-        },
-      }
-    );
+    const { data } = await axios.post(`/api/orders/${params.orderId}/placeOrder`, null, {
+      headers: {
+        Authorization: `bearer ${params.jwt}`,
+      },
+    });
     dispatch({
       type: "placeOrderSuccess",
       payload: data,
