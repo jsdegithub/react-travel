@@ -1,4 +1,5 @@
 ## 项目演示：[点击链接查看项目演示](https://tour.aeeternity.com/)（不要使用代理访问网站，否则会被拦截）
+目前该项目已基于Nextjs重构（[重构项目请点击此链接查看](https://github.com/jsdegithub/react-travel-ssr)），实现了SSR服务端渲染，加快了首屏加载速度，
 
 ### 技术栈： React+Hooks+Antd+ReactRouter+Redux+React-redux+ReduxToolkit
 
