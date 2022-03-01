@@ -26,9 +26,9 @@
 
 8、使用阿里云CDN加速，并借助阿里云CDN进一步压缩资源；
 
-9、经测试，白屏时间:0.4s，Time-To-Interactive:0.8s，Largest-Contentful-Paint:1.2s，
+9、经测试，白屏时间:0.4s，Time-To-Interactive:0.8s，Largest-Contentful-Paint:1.2s，白屏时间从
 
-白屏时间从优化前的十几秒降至0.4秒，实现了首屏秒开。
+优化前的十几秒降至0.4秒，实现了首屏秒开。
 
 
 ### 项目功能点和难点：
