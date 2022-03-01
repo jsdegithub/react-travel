@@ -1,6 +1,8 @@
 ## 项目演示：[点击链接查看项目演示](https://tour.aeeternity.com/)（不要使用代理，否则网站将无法正常访问）
 这是基于 React+ReactRouter 的 CSR 客户端渲染项目，目前该项目已基于 Nextjs 重构（[重构项目请点击此链接查看](https://github.com/jsdegithub/react-travel-ssr)），从CSR客户端渲染重构为  SSR 服务端渲染，大大加快了首屏渲染速度。
 
+本项目后经过阿里云CDN加速，首屏速度已和SSR相差无几。
+
 ### 技术栈： React+Hooks+Antd+ReactRouter+Redux+React-redux+ReduxToolkit
 
 ### 部署方案：Docker+阿里云ECS+阿里云容器镜像服务+阿里云SSL单域名证书+nginx接口代理
