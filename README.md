@@ -24,9 +24,10 @@
 
 7、React.memo+useMemo+useCallback子组件性能优化；
 
-8、经测试，白屏时间:0.7s，TimeToInteractive:1.8s，DOMContentLoaded:3s，首屏完全加载时间8s；
+8、阿里云CDN加速；
 
-9、服务器图片资源未经压缩，对首屏加载速度影响较大。
+9、经测试，白屏时间:0.7s，TimeToInteractive:1.8s，DOMContentLoaded:3s，首屏完全加载时间8s；
+
 
 ### 项目功能点和难点：
 一、redux全局状态管理
